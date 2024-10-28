@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import PatientList from "./patients/PatientList";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import ErrorPage from "./ErrorPage";
+import PatientDetails from "./patients/PatientDetails";
+import {ThemeProvider} from "@mui/material";
+import darkTheme from "./theme/DarkTheme";
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <PatientList/>,
+        errorElement: <ErrorPage/>,
+    }, {
+        path: "patients/:patientId",
+        element: <PatientDetails/>,
+    }
+]);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ThemeProvider theme={darkTheme}>
+            <RouterProvider router={router} />
+        </ThemeProvider>
+    );
 }
 
 export default App;
